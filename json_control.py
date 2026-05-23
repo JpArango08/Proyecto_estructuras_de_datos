@@ -1,0 +1,6 @@
+from arbol_json import GeneralTree
+class JsonController:
+    def json_a_arbol(nombre_archivo: str):
+        ...
+    def arbol_a_json(arbol: GeneralTree):
+        ...
