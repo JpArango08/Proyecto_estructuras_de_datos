@@ -13,9 +13,14 @@ class GeneralTree:
     def __init__(self):
         self.root: Optional[GeneralNode] = None
 
-    def insert(self, parent: Optional[Any], value: Any) -> None:
+    def insert(self, parent: Optional[Any], value: Any, key: str = None) -> None:
 
         new_node = GeneralNode(value)
+
+        if key is not None:
+            node_key = key
+        else:
+            node_key = str(value)
 
         if self.root is None:
             if parent is None:
@@ -26,7 +31,7 @@ class GeneralTree:
 
         parent_node = self._find(self.root, parent)
         if parent_node:
-            parent_node.children.append(new_node)
+            parent_node.children[node_key] = new_node
         else:
             print(f"⚠️ No se encontró el nodo padre con valor '{parent}'.")
 
@@ -34,7 +39,7 @@ class GeneralTree:
         """Búsqueda DFS del nodo con un valor dado."""
         if node.value == value:
             return node
-        for child in node.children:
+        for child in node.children.values():
             found = self._find(child, value)
             if found:
                 return found
