@@ -12,30 +12,27 @@ class GeneralNode:
 class GeneralTree:
     def __init__(self):
         self.root: Optional[GeneralNode] = None
-
-    def insert(self, parent: Optional[Any], value: Any, key: str = None) -> None:
-
-        new_node = GeneralNode(value)
-
-        if key is not None:
-            node_key = key
-        else:
-            node_key = str(value)
-
+    def insert(self, parent: Any, value: Dict, current=None) -> None:
         if self.root is None:
             if parent is None:
-                self.root = new_node
+                self.root = GeneralNode(value)
+                return
             else:
-                print(f"⚠️ Árbol vacío. No existe el padre '{parent}'.")
-            return
+                return
 
-        parent_node = self._find(self.root, parent)
-        if parent_node:
-            parent_node.children[node_key] = new_node
-        else:
-            print(f"⚠️ No se encontró el nodo padre con valor '{parent}'.")
+        if current is None:
+            current = self.root
 
-    def _find(self, node: GeneralNode, value: Any) -> Optional[GeneralNode]:
+        for clave, valor in current.value.items():
+            if valor == parent:
+                current.children[valor] = GeneralNode(value)
+                return
+
+        for child in current.children.values():
+            self.insert(parent, value, child)
+
+
+    def _find(self) -> Optional[GeneralNode]:
         """Búsqueda DFS del nodo con un valor dado."""
         if node.value == value:
             return node
@@ -51,14 +48,47 @@ class GeneralTree:
             return "🌱 Árbol vacío"
         return self._build_tree_repr(self.root, "", True)
 
-    def _build_tree_repr(self, node: GeneralNode, prefix: str, is_last: bool) -> str:
+    def _build_tree_repr(self, node, prefix, is_last):
 
-        tree_str = prefix + ("└── " if is_last else "├── ") + str(node.value) + "\n"
+        tree_str = prefix + ("└── " if is_last else "├── ")
+        tree_str += str(node.value["nombre"]) + "\n"
+
         prefix += "    " if is_last else "│   "
 
+        children = list(node.children.values())
 
-        child_count = len(node.children)
-        for i, child in enumerate(node.children):
-            is_last_child = (i == child_count - 1)
-            tree_str += self._build_tree_repr(child, prefix, is_last_child)
+        for i, child in enumerate(children):
+            is_last_child = (i == len(children) - 1)
+
+            tree_str += self._build_tree_repr(
+                child,
+                prefix,
+                is_last_child
+            )
+
         return tree_str
+
+tree = GeneralTree()
+
+# raíz
+tree.insert(None, {
+    "nombre": "A"
+})
+
+# hijos
+tree.insert("nombre", {
+    "nombre": "B"
+})
+
+tree.insert("A", {
+    "nombre": "C"
+})
+
+# subhijos
+tree.insert("B", {
+    "nombre": "D"
+})
+
+
+
+print(tree)

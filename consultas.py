@@ -29,9 +29,10 @@ class Consultas:
     def load(self, nombre_archivo: str):
         JsonController.json_a_arbol(nombre_archivo, self.data)
 
-
-
+    
     def find(self, buscar: dict):
-        ...
+        for clave, valor in buscar.items(): 
+            arbol.find(clave)
+            
     
 
