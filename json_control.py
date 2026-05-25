@@ -1,5 +1,5 @@
 from arbol_json import GeneralTree
-from lista_docs import LinkedList
+from lista_docs import ListaDocs
 import json
 class JsonController:
     def agregar_nodos(self, elemento, padre, arbol):
@@ -10,7 +10,7 @@ class JsonController:
             else:
                 arbol.insert(padre, {clave: valor})
 
-    def json_a_arbol(self,nombre_archivo: str, data: LinkedList):
+    def json_a_arbol(self,nombre_archivo: str, data: ListaDocs):
         with open(nombre_archivo, "r", encoding="utf-8") as archivo:
             json_info = json.load(archivo)
 

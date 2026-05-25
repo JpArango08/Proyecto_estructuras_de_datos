@@ -2,14 +2,14 @@ from typing import List, Dict, Any
 
 from typing import Any
 class Node:
-  def __init__(self, value: Any, next = None):
+  def __init__(self, value: Any , next = None):
     self.value = value
     self.next = next
 
   def __repr__(self) -> str:
     return f"{self.value} -> {self.next}"
 
-class LinkedList:
+class ListaDocs:
   def __init__(self, head = None):
     self.head = head
     self.size: int = 0
@@ -36,15 +36,15 @@ class LinkedList:
 
     self.size -= 1
 
-  def append(self, value: Any) -> None:
+  def append(self, arbol: Any) -> None:
     if(self.head is None):
-      self.head = Node(value) 
+      self.head = Node(arbol) 
     else:
       current_node = self.head
       while(current_node.next is not None):
         current_node = current_node.next
 
-      current_node.next = Node(value)
+      current_node.next = Node(arbol)
       
     self.size += 1
 
