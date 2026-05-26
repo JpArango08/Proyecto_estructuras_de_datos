@@ -10,6 +10,7 @@ class Node:
   def __repr__(self) -> str:
     return f"{self.value} -> {self.next}"
 
+
 class LinkedList:
   def __init__(self, head = None):
     self.head = head
