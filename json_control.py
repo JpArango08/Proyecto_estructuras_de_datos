@@ -16,9 +16,8 @@ class JsonController:
 
         for elemento in json_info:
             arbol = GeneralTree()
-            doc_id = f"doc_{data.size}"
-            arbol.insert(None, {"doc": doc_id})
-            self.agregar_nodos(elemento,doc_id,arbol)
+            arbol.insert(None, {f"doc_{data.size}": None})
+            self.agregar_nodos(elemento,f"doc_{data.size}",arbol)
             data.append(arbol)
     def arbol_a_json(self, arbol: GeneralTree):
         ...

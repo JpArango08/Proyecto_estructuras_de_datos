@@ -1,9 +1,9 @@
 from typing import Any, Optional, Dict
-
+from lista_enlazada import LinkedList
 class GeneralNode:
-    def __init__(self, value: Any):
+    def __init__(self, value: Dict):
         self.value = value
-        self.children: Dict = {}
+        self.children: LinkedList = LinkedList()
 
     def __repr__(self):
         return f"{self.value}"
@@ -12,34 +12,47 @@ class GeneralNode:
 class GeneralTree:
     def __init__(self):
         self.root: Optional[GeneralNode] = None
-    def insert(self, parent: Any, value: Dict, current=None) -> None:
+
+    def insert(self, parent: Any, value: Dict) -> None:
+
+        new_node = GeneralNode(value)
+
         if self.root is None:
             if parent is None:
-                self.root = GeneralNode(value)
-                return
+                self.root = new_node
             else:
-                return
+                print(f"⚠️ Árbol vacío. No existe el padre '{parent}'.")
+            return
 
-        if current is None:
-            current = self.root
-
-        for clave, valor in current.value.items():
-            if valor == parent:
-                current.children[valor] = GeneralNode(value)
-                return
-
-        for child in current.children.values():
-            self.insert(parent, value, child)
+        parent_node = self._find(self.root, parent)
+        if parent_node:
+            parent_node.children.append(new_node)
+        else:
+            print(f"⚠️ No se encontró el nodo padre con valor '{parent}'.")
 
 
-    def _find(self) -> Optional[GeneralNode]:
-        """Búsqueda DFS del nodo con un valor dado."""
-        if node.value == value:
-            return node
-        for child in node.children.values():
-            found = self._find(child, value)
-            if found:
+
+    def _find(self, node: GeneralNode, value: Any) -> Optional[GeneralNode]:
+
+        if node is None:
+            return None
+
+        for clave in node.value.keys():
+
+            if clave == value:
+                return node
+
+        current = node.children.head
+
+        while current is not None:
+
+            found = self._find(current.value,value)
+            
+            if found is not None:
                 return found
+
+            current = current.next
+
         return None
 
     def __repr__(self) -> str:
@@ -48,47 +61,14 @@ class GeneralTree:
             return "🌱 Árbol vacío"
         return self._build_tree_repr(self.root, "", True)
 
-    def _build_tree_repr(self, node, prefix, is_last):
+    def _build_tree_repr(self, node: GeneralNode, prefix: str, is_last: bool) -> str:
 
-        tree_str = prefix + ("└── " if is_last else "├── ")
-        tree_str += str(node.value["nombre"]) + "\n"
-
+        tree_str = prefix + ("└── " if is_last else "├── ") + str(node.value) + "\n"
         prefix += "    " if is_last else "│   "
 
-        children = list(node.children.values())
 
-        for i, child in enumerate(children):
-            is_last_child = (i == len(children) - 1)
-
-            tree_str += self._build_tree_repr(
-                child,
-                prefix,
-                is_last_child
-            )
-
+        child_count = len(node.children)
+        for i, child in enumerate(node.children):
+            is_last_child = (i == child_count - 1)
+            tree_str += self._build_tree_repr(child, prefix, is_last_child)
         return tree_str
-
-tree = GeneralTree()
-
-# raíz
-tree.insert(None, {
-    "nombre": "A"
-})
-
-# hijos
-tree.insert("nombre", {
-    "nombre": "B"
-})
-
-tree.insert("A", {
-    "nombre": "C"
-})
-
-# subhijos
-tree.insert("B", {
-    "nombre": "D"
-})
-
-
-
-print(tree)
