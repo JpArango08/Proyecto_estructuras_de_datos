@@ -6,8 +6,14 @@ class GeneralNode:
         self.children: LinkedList = LinkedList()
 
     def __repr__(self):
-        return f"{self.value}"
-
+        if len(self.children) == 0:
+            # hoja: mostrar clave: valor
+            items = list(self.value.items())
+            if items:
+                clave, valor = items[0]
+                return f"{clave}: {valor!r}"
+        # nodo intermedio: mostrar solo la clave
+        return list(self.value.keys())[0]
 
 class GeneralTree:
     def __init__(self):
@@ -62,13 +68,10 @@ class GeneralTree:
         return self._build_tree_repr(self.root, "", True)
 
     def _build_tree_repr(self, node: GeneralNode, prefix: str, is_last: bool) -> str:
-
-        tree_str = prefix + ("└── " if is_last else "├── ") + str(node.value) + "\n"
+        connector = "└── " if is_last else "├── "
+        tree_str = prefix + connector + repr(node) + "\n"
         prefix += "    " if is_last else "│   "
-
-
-        child_count = len(node.children)
-        for i, child in enumerate(node.children):
-            is_last_child = (i == child_count - 1)
-            tree_str += self._build_tree_repr(child, prefix, is_last_child)
+        children = list(node.children)
+        for i, child in enumerate(children):
+            tree_str += self._build_tree_repr(child, prefix, i == len(children) - 1)
         return tree_str

@@ -7,7 +7,7 @@ class Node:
     self.next = next
 
   def __repr__(self) -> str:
-    return f"{self.value} -> {self.next}"
+    return f"Nodo(doc_{id(self.value)})"
 
 class ListaDocs:
   def __init__(self, head = None):
@@ -50,13 +50,21 @@ class ListaDocs:
 
 
   def traverse(self) -> None:
-
-    current_node = self.head
-    while(current_node is not None):
-      print(current_node.value)
-      current_node = current_node.next
-
+    current = self.head
+    i = 0
+    while current is not None:
+      print(f"── Documento {i} ──")
+      print(current.value)           
+      current = current.next
+      i += 1
   def __repr__(self) -> str:
-    return f"{self.head}"
+      lines = [f"ListaDocs (size={self.size})"]
+      current = self.head
+      i = 0
+      while current is not None:
+            lines.append(f"\n── Documento {i} ──\n{current.value}")
+            current = current.next
+            i += 1
+      return "\n".join(lines)
   
 

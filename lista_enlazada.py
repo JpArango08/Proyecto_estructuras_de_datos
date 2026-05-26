@@ -1,14 +1,14 @@
 from typing import List, Dict, Any
-from arbol_json import GeneralNode
+
 
 from typing import Any
 class Node:
-  def __init__(self, value: GeneralNode , next = None):
+  def __init__(self, value: Any , next = None):
     self.value = value
     self.next = next
 
   def __repr__(self) -> str:
-    return f"{self.value} -> {self.next}"
+     return f"{self.value}"
 
 
 class LinkedList:
@@ -50,7 +50,13 @@ class LinkedList:
       
     self.size += 1
 
-
+  def __len__(self) -> int:
+    return self.size
+  def __iter__(self):
+    current = self.head
+    while current is not None:
+      yield current.value
+      current = current.next
   def traverse(self) -> None:
 
     current_node = self.head
@@ -59,4 +65,5 @@ class LinkedList:
       current_node = current_node.next
 
   def __repr__(self) -> str:
-    return f"{self.head}"
+    nodos = " -> ".join(str(n) for n in self)
+    return f"[{nodos}]" if nodos else "[]"
