@@ -51,7 +51,13 @@ def menu():
                 print(f"❌ Error: {e}")
         elif opcion == "3":
             nombre = input("Nombre del archivo JSON: ")
-            consultas.arbol_json(nombre)
+            try:
+                consultas.arbol_json(nombre)
+                print("Documentos pasados correctamente a formato Json")
+            except FileNotFoundError:
+                print("❌ El archivo no existe, necesitas tener uno creado")
+            except Exception as e:
+                print( f"❌ Error: {e}")
 
         elif opcion == "4":
             print("\n👋 Saliendo...")
