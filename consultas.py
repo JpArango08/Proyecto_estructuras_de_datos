@@ -8,10 +8,9 @@ class Consultas:
 
     def __init__(self):
         self.data = ListaDocs()
-
+        self.ctrl= JsonController()
     def load(self, nombre_archivo: str) -> None:
-        ctrl = JsonController()
-        ctrl.json_a_arbol(nombre_archivo, self.data)
+        self.ctrl.json_a_arbol(nombre_archivo, self.data)
 
     def _eq(self, valor_doc: Any, valor_consulta: Any) -> bool:
         return valor_doc == valor_consulta
@@ -106,3 +105,6 @@ class Consultas:
             current = current.next
 
         return resultados
+    
+    def arbol_json(self, nombre_archivo: str):
+        self.ctrl.arbol_a_json(self.data, nombre_archivo)

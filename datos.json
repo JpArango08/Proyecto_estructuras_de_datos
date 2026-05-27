@@ -10,7 +10,6 @@
             "codigo_postal": 50031
         }
     },
-
     {
         "id": 2,
         "nombre": "Carlos",
@@ -22,7 +21,6 @@
             "codigo_postal": 110231
         }
     },
-
     {
         "id": 3,
         "nombre": "Laura",
@@ -34,7 +32,6 @@
             "codigo_postal": 760001
         }
     },
-
     {
         "id": 4,
         "nombre": "Miguel",
@@ -46,7 +43,6 @@
             "codigo_postal": 50021
         }
     },
-
     {
         "id": 5,
         "nombre": "Sofía",

@@ -10,7 +10,8 @@ def menu():
         print("\n===== MINI MOTOR DOCUMENTAL =====")
         print("1. Cargar archivo JSON")
         print("2. Buscar documentos")
-        print("3. Salir")
+        print("3. Cargar árbol a JSON")
+        print("4. Salir")
 
         opcion = input("\nSeleccione una opción: ")
 
@@ -38,7 +39,7 @@ def menu():
                 resultados = consultas.find(consulta)
 
                 if len(resultados) == 0:
-                    print("\n⚠️ No se encontraron documentos")
+                    print("\n⚠️ No se encontraron documentos que cumplan con esa condición")
                 else:
                     print("\n===== RESULTADOS =====")
                     for resultado in resultados:
@@ -48,8 +49,11 @@ def menu():
                 print("❌ Consulta inválida")
             except Exception as e:
                 print(f"❌ Error: {e}")
-
         elif opcion == "3":
+            nombre = input("Nombre del archivo JSON: ")
+            consultas.arbol_json(nombre)
+
+        elif opcion == "4":
             print("\n👋 Saliendo...")
             break
 
