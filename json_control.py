@@ -28,29 +28,15 @@ class JsonController:
     def _nodo_a_dict(self, nodo):
 
         documento = {}
-
         current = nodo.children.head
-
         while current is not None:
-
             hijo = current.value
-
-            clave, valor = self._obtener_clave_valor(
-                hijo.value
-            )
-
+            clave, valor = self._obtener_clave_valor(hijo.value)
             if hijo.children.head is not None:
-
-                documento[clave] = self._nodo_a_dict(
-                    hijo
-                )
-
+                documento[clave] = self._nodo_a_dict(hijo)
             else:
-
                 documento[clave] = valor
-
             current = current.next
-
         return documento
 
 
@@ -66,10 +52,7 @@ class JsonController:
 
             if arbol.root is not None:
 
-                documento = self._nodo_a_dict(
-                    arbol.root
-                )
-
+                documento = self._nodo_a_dict(arbol.root)
                 documentos.append(documento)
 
             current = current.next

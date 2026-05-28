@@ -66,5 +66,23 @@ class ListaDocs:
             current = current.next
             i += 1
       return "\n".join(lines)
-  
+  def eliminar_por_nombre(self, nombre: str) -> None:
+    """Elimina el documento cuyo root tenga el nombre dado (ej: 'doc_0')."""
+    if self.head is None:
+        return
+
+    # caso especial: es el primero de la lista
+    if list(self.head.value.root.value.keys())[0] == nombre:
+        self.head = self.head.next
+        self.size -= 1
+        return
+
+    current = self.head
+    while current.next is not None:
+        clave = list(current.next.value.root.value.keys())[0]
+        if clave == nombre:
+            current.next = current.next.next
+            self.size -= 1
+            return
+        current = current.next
 

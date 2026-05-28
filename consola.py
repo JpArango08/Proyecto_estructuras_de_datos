@@ -21,16 +21,16 @@ def menu():
 
             try:
                 consultas.load(nombre)
-                print("✅ Archivo cargado correctamente")
+                print(" Archivo cargado correctamente")
             except FileNotFoundError:
-                print("❌ El archivo no existe")
+                print(" El archivo no existe")
             except Exception as e:
-                print( f"❌ Error: {e}")
+                print( f" Error: {e}")
 
         elif opcion == "2":
 
             if consultas.data.head is None:
-                print("⚠️ No hay documentos cargados")
+                print("No hay documentos cargados")
                 continue
 
             consulta_texto = input("\nIngrese la consulta: ")
@@ -39,32 +39,28 @@ def menu():
                 resultados = consultas.find(consulta)
 
                 if len(resultados) == 0:
-                    print("\n⚠️ No se encontraron documentos que cumplan con esa condición")
+                    print("\nNo se encontraron documentos que cumplan con esa condición")
                 else:
                     print("\n===== RESULTADOS =====")
                     for resultado in resultados:
                         print(resultado)
 
             except SyntaxError:
-                print("❌ Consulta inválida")
+                print(" Consulta inválida")
             except Exception as e:
-                print(f"❌ Error: {e}")
+                print(f"Error: {e}")
         elif opcion == "3":
             nombre = input("Nombre del archivo JSON: ")
             try:
                 consultas.arbol_json(nombre)
                 print("Documentos pasados correctamente a formato Json")
             except FileNotFoundError:
-                print("❌ El archivo no existe, necesitas tener uno creado")
+                print(" El archivo no existe, necesitas tener uno creado")
             except Exception as e:
-                print( f"❌ Error: {e}")
+                print( f"Error: {e}")
 
         elif opcion == "4":
             print("\n👋 Saliendo...")
             break
-
-        else:
-            print("⚠️ Opción inválida")
-
 
 menu()
