@@ -67,11 +67,28 @@ class GeneralTree:
             return "🌱 Árbol vacío"
         return self._build_tree_repr(self.root, "", True)
 
-    def _build_tree_repr(self, node: GeneralNode, prefix: str, is_last: bool) -> str:
+    def _build_tree_repr(self,node: GeneralNode,prefix: str,is_last: bool) -> str:
+
         connector = "└── " if is_last else "├── "
+
         tree_str = prefix + connector + repr(node) + "\n"
+
         prefix += "    " if is_last else "│   "
-        children = list(node.children)
-        for i, child in enumerate(children):
-            tree_str += self._build_tree_repr(child, prefix, i == len(children) - 1)
+
+        current = node.children.head
+
+        while current is not None:
+
+            siguiente = current.next
+
+            child_is_last = siguiente is None
+
+            tree_str += self._build_tree_repr(
+                current.value,
+                prefix,
+                child_is_last
+            )
+
+            current = current.next
+
         return tree_str

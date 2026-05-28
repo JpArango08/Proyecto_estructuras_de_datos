@@ -61,5 +61,21 @@ class LinkedList:
       current_node = current_node.next
 
   def __repr__(self) -> str:
-    nodos = " -> ".join(str(n) for n in self)
-    return f"[{nodos}]" if nodos else "[]"
+
+      if self.head is None:
+          return "[]"
+
+      texto = ""
+
+      current = self.head
+
+      while current is not None:
+
+          texto += str(current.value)
+
+          if current.next is not None:
+              texto += " -> "
+
+          current = current.next
+
+      return f"[{texto}]"
