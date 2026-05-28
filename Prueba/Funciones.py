@@ -1,5 +1,5 @@
 # ================================================================
-#  FUNCIONES PARA EL EXAMEN
+#  FUNCIONES PARA EL EXAMEN — CORREGIDAS SIN __iter__
 #  Copia cada bloque en el archivo que corresponde
 # ================================================================
 
@@ -9,16 +9,12 @@
 # ----------------------------------------------------------------
 
 def eliminar_por_nombre(self, nombre: str) -> None:
-    """Elimina el documento cuyo root tenga el nombre dado (ej: 'doc_0')."""
     if self.head is None:
         return
-
-    # caso especial: es el primero de la lista
     if list(self.head.value.root.value.keys())[0] == nombre:
         self.head = self.head.next
         self.size -= 1
         return
-
     current = self.head
     while current.next is not None:
         clave = list(current.next.value.root.value.keys())[0]
@@ -34,7 +30,6 @@ def eliminar_por_nombre(self, nombre: str) -> None:
 # ----------------------------------------------------------------
 
 def _buscar_padre(self, actual, clave: str):
-    """Retorna el nodo padre del nodo hoja con esa clave, o None si no existe."""
     hijo = actual.children.head
     while hijo is not None:
         clave_hijo = list(hijo.value.value.keys())[0]
@@ -47,7 +42,6 @@ def _buscar_padre(self, actual, clave: str):
     return None
 
 def eliminar_hoja(self, clave: str) -> None:
-    """Elimina un nodo hoja por su clave. Si tiene hijos no lo elimina."""
     padre = self._buscar_padre(self.root, clave)
     if padre is None:
         print(f"No se encontró '{clave}' como nodo hoja.")
@@ -62,19 +56,19 @@ def eliminar_hoja(self, clave: str) -> None:
         pos += 1
 
 def contar_nodos(self) -> int:
-    """Retorna el total de nodos del árbol incluyendo la raíz."""
     return self._contar(self.root)
 
 def _contar(self, nodo) -> int:
     if nodo is None:
         return 0
     total = 1
-    for hijo in nodo.children:
-        total += self._contar(hijo)
+    current = nodo.children.head
+    while current is not None:
+        total += self._contar(current.value)
+        current = current.next
     return total
 
 def profundidad(self) -> int:
-    """Retorna la altura del árbol. Árbol vacío retorna -1, solo raíz retorna 0."""
     if self.root is None:
         return -1
     return self._profundidad(self.root)
@@ -83,18 +77,18 @@ def _profundidad(self, nodo) -> int:
     if nodo.children.head is None:
         return 0
     max_prof = 0
-    for hijo in nodo.children:
-        prof = self._profundidad(hijo)
+    current = nodo.children.head
+    while current is not None:
+        prof = self._profundidad(current.value)
         if prof > max_prof:
             max_prof = prof
+        current = current.next
     return 1 + max_prof
 
 def contiene(self, clave: str) -> bool:
-    """Retorna True si existe algún nodo con esa clave en el árbol."""
     return self._find(self.root, clave) is not None
 
 def claves_hoja(self) -> list:
-    """Retorna una lista con las claves de todos los nodos hoja del árbol."""
     resultado = []
     self._recolectar_hojas(self.root, resultado)
     return resultado
@@ -106,25 +100,27 @@ def _recolectar_hojas(self, nodo, resultado: list) -> None:
         clave = list(nodo.value.keys())[0]
         resultado.append(clave)
         return
-    for hijo in nodo.children:
-        self._recolectar_hojas(hijo, resultado)
+    current = nodo.children.head
+    while current is not None:
+        self._recolectar_hojas(current.value, resultado)
+        current = current.next
 
 def insertar_unico(self, padre, valor: dict) -> None:
-    """Insert que verifica que no exista ya un nodo con esa clave en el mismo nivel."""
     nueva_clave = list(valor.keys())[0]
     nodo_padre = self._find(self.root, padre)
     if nodo_padre is None:
         print(f"No se encontró el padre '{padre}'.")
         return
-    for hijo in nodo_padre.children:
-        if list(hijo.value.keys())[0] == nueva_clave:
+    current = nodo_padre.children.head
+    while current is not None:
+        if list(current.value.value.keys())[0] == nueva_clave:
             print(f"Ya existe un nodo con clave '{nueva_clave}' en ese nivel.")
             return
+        current = current.next
     from arbol_json import GeneralNode
     nodo_padre.children.append(GeneralNode(valor))
 
 def bfs(self) -> None:
-    """Recorre el árbol nivel por nivel (anchura) usando LinkedList como cola."""
     if self.root is None:
         return
     from lista_enlazada import LinkedList
@@ -134,11 +130,12 @@ def bfs(self) -> None:
         nodo = cola.head.value
         cola.delete_at_pos(0)
         print(repr(nodo))
-        for hijo in nodo.children:
-            cola.append(hijo)
+        current = nodo.children.head
+        while current is not None:
+            cola.append(current.value)
+            current = current.next
 
 def actualizar_valor(self, clave: str, nuevo_valor) -> None:
-    """Actualiza el valor de un nodo hoja. Si tiene hijos no lo modifica."""
     nodo = self._find(self.root, clave)
     if nodo is None:
         print(f"No se encontró el nodo con clave '{clave}'.")
@@ -154,7 +151,6 @@ def actualizar_valor(self, clave: str, nuevo_valor) -> None:
 # ----------------------------------------------------------------
 
 def contar(self, buscar: dict) -> int:
-    """Retorna cuántos documentos cumplen el filtro dado."""
     if self.data.head is None:
         return 0
     total = 0
@@ -172,7 +168,6 @@ def contar(self, buscar: dict) -> int:
     return total
 
 def find_one(self, buscar: dict):
-    """Retorna el primer documento que cumpla el filtro, o None si no hay ninguno."""
     if self.data.head is None:
         return None
     current = self.data.head
@@ -189,7 +184,6 @@ def find_one(self, buscar: dict):
     return None
 
 def eliminar(self, buscar: dict) -> None:
-    """Elimina todos los documentos que cumplan el filtro."""
     if self.data.head is None:
         return
     pos = 0
@@ -209,18 +203,15 @@ def eliminar(self, buscar: dict) -> None:
         current = siguiente
 
 def actualizar(self, buscar: dict, cambios: dict) -> None:
-    """Actualiza los campos indicados en todos los documentos que cumplan el filtro."""
     resultados = self.find(buscar)
     for arbol in resultados:
         for clave, nuevo_valor in cambios.items():
             arbol.actualizar_valor(clave, nuevo_valor)
 
 def existe(self, buscar: dict) -> bool:
-    """Retorna True si existe al menos un documento que cumpla el filtro."""
     return self.find_one(buscar) is not None
 
 def max_valor(self, campo: str):
-    """Retorna el valor máximo de un campo numérico en toda la colección."""
     maximo = None
     current = self.data.head
     while current is not None:
@@ -234,7 +225,6 @@ def max_valor(self, campo: str):
     return maximo
 
 def min_valor(self, campo: str):
-    """Retorna el valor mínimo de un campo numérico en toda la colección."""
     minimo = None
     current = self.data.head
     while current is not None:
@@ -248,7 +238,6 @@ def min_valor(self, campo: str):
     return minimo
 
 def distinct(self, campo: str) -> list:
-    """Retorna todos los valores únicos de un campo en la colección."""
     vistos = []
     current = self.data.head
     while current is not None:

@@ -1,5 +1,5 @@
 # ================================================================
-#  SOLUCIONES EJERCICIOS DE PRÁCTICA
+#  FUNCIONES CORREGIDAS SIN __iter__
 #  Copia cada función en el archivo que corresponde
 # ================================================================
 
@@ -68,7 +68,7 @@ def suma_campo(self, campo: str):
 # 9. promedio_campo — promedio de un campo numérico
 def promedio_campo(self, campo: str):
     total = self.suma_campo(campo)
-    cantidad = self.contar({campo: {"$gte": 0}})  # cuenta los que tienen el campo numérico
+    cantidad = self.contar({campo: {"$gte": 0}})
     if total is None or cantidad == 0:
         return None
     return total / cantidad
@@ -109,8 +109,10 @@ def _contar_hojas(self, nodo) -> int:
     if nodo.children.head is None:
         return 1
     total = 0
-    for hijo in nodo.children:
-        total += self._contar_hojas(hijo)
+    current = nodo.children.head
+    while current is not None:
+        total += self._contar_hojas(current.value)
+        current = current.next
     return total
 
 
@@ -150,8 +152,10 @@ def _recorrer_hojas(self, nodo) -> None:
         clave = list(nodo.value.keys())[0]
         print(clave)
         return
-    for hijo in nodo.children:
-        self._recorrer_hojas(hijo)
+    current = nodo.children.head
+    while current is not None:
+        self._recorrer_hojas(current.value)
+        current = current.next
 
 
 # 11. copiar_arbol — copia profunda del árbol en objetos distintos
@@ -166,5 +170,7 @@ def _copiar_nodo(self, nodo, padre, arbol) -> None:
     clave = list(nodo.value.keys())[0]
     valor = nodo.value[clave]
     arbol.insert(padre, {clave: valor})
-    for hijo in nodo.children:
-        self._copiar_nodo(hijo, clave, arbol)
+    current = nodo.children.head
+    while current is not None:
+        self._copiar_nodo(current.value, clave, arbol)
+        current = current.next
