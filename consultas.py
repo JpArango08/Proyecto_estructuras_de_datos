@@ -8,8 +8,7 @@ class Consultas:
 
     def __init__(self):
         self.data = ListaDocs()
-        self.ctrl = JsonController()
-
+        self.ctrl= JsonController()
     def load(self, nombre_archivo: str) -> None:
         self.ctrl.json_a_arbol(nombre_archivo, self.data)
 
@@ -42,6 +41,11 @@ class Consultas:
             return valor_doc <= valor_consulta
         except TypeError:
             return False
+    def _in(self, valor_doc: Any, valor_consulta: Any) -> bool: 
+        try: 
+            return valor_doc in valor_consulta
+        except TypeError: 
+            return False
 
     def _aplicar_operador(self, valor_doc: Any, operador: str, valor_consulta: Any) -> bool:
         operadores = {
@@ -51,6 +55,7 @@ class Consultas:
             "$gte": self._gte,
             "$lt":  self._lt,
             "$lte": self._lte,
+            "$in": self._in,
         }
         if operador not in operadores:
             raise ValueError(f"Operador no soportado: {operador}")
@@ -106,3 +111,6 @@ class Consultas:
             current = current.next
 
         return resultados
+    
+    def arbol_json(self, nombre_archivo: str):
+        self.ctrl.arbol_a_json(self.data, nombre_archivo)

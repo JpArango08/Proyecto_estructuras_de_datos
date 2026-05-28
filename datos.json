@@ -1,36 +1,57 @@
 [
-  {
-    "id": 1,
-    "nombre": "Ana",
-    "edad": 25,
-    "ciudad": "Medellín",
-    "direccion": {
-      "barrio": "Laureles",
-      "codigo_postal": 50031
+    {
+        "id": 1,
+        "nombre": "Ana",
+        "edad": 25,
+        "ciudad": "Medellín",
+        "activo": true,
+        "direccion": {
+            "barrio": "Laureles",
+            "codigo_postal": 50031
+        }
+    },
+    {
+        "id": 2,
+        "nombre": "Carlos",
+        "edad": 31,
+        "ciudad": "Bogotá",
+        "activo": false,
+        "direccion": {
+            "barrio": "Chapinero",
+            "codigo_postal": 110231
+        }
+    },
+    {
+        "id": 3,
+        "nombre": "Laura",
+        "edad": 19,
+        "ciudad": "Cali",
+        "activo": true,
+        "direccion": {
+            "barrio": "San Fernando",
+            "codigo_postal": 760001
+        }
+    },
+    {
+        "id": 4,
+        "nombre": "Miguel",
+        "edad": 40,
+        "ciudad": "Medellín",
+        "activo": true,
+        "direccion": {
+            "barrio": "El Poblado",
+            "codigo_postal": 50021
+        }
+    },
+    {
+        "id": 5,
+        "nombre": "Sofía",
+        "edad": 28,
+        "ciudad": "Barranquilla",
+        "activo": false,
+        "direccion": {
+            "barrio": "Riomar",
+            "codigo_postal": 800001
+        }
     }
-  },
-  {
-    "id": 2,
-    "nombre": "Carlos",
-    "edad": 31,
-    "ciudad": "Bogotá",
-    "direccion": {
-      "barrio": "Chapinero",
-      "codigo_postal": 110231
-    }
-  },
-  {
-    "id": 3,
-    "nombre": "Johan = Gay",
-    "edad": 32,
-    "ciudad": "Chamolandia",
-    "direccion": {
-      "barrio":{ "Chapinero": {
-        "calle": "Calle 123",
-        "numero": 45
-      }},
-      "codigo_postal": 110231
-    }
-  }
-  
 ]

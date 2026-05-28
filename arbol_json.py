@@ -36,8 +36,6 @@ class GeneralTree:
         else:
             print(f"⚠️ No se encontró el nodo padre con valor '{parent}'.")
 
-
-
     def _find(self, node: GeneralNode, value: Any) -> Optional[GeneralNode]:
 
         if node is None:
