@@ -52,11 +52,7 @@ class LinkedList:
 
   def __len__(self) -> int:
     return self.size
-  def __iter__(self):
-    current = self.head
-    while current is not None:
-      yield current.value
-      current = current.next
+
   def traverse(self) -> None:
 
     current_node = self.head

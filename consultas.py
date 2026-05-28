@@ -62,15 +62,24 @@ class Consultas:
         return operadores[operador](valor_doc, valor_consulta)
 
     def _buscar_ruta(self, nodo, partes: list) -> Optional[Any]:
+
         if nodo is None:
             return None
 
-        for hijo in nodo.children:
+        current = nodo.children.head
+
+        while current is not None:
+
+            hijo = current.value
+
             for clave, valor in hijo.value.items():
+
                 if clave == partes[0]:
                     if len(partes) == 1:
                         return valor
-                    return self._buscar_ruta(hijo, partes[1:])
+                    return self._buscar_ruta(hijo,partes[1:])
+                
+            current = current.next
 
         return None
 
