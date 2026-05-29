@@ -1,0 +1,57 @@
+[
+    {
+        "id": 1,
+        "nombre": "no cancelen",
+        "edad": 25,
+        "ciudad": "no cancelen",
+        "activo": true,
+        "direccion": {
+            "barrio": "Laureles",
+            "codigo_postal": 50031
+        }
+    },
+    {
+        "id": 2,
+        "nombre": "no cancelen",
+        "edad": 31,
+        "ciudad": "no cancelen",
+        "activo": false,
+        "direccion": {
+            "barrio": "Chapinero",
+            "codigo_postal": 110231
+        }
+    },
+    {
+        "id": 3,
+        "nombre": "no cancelen",
+        "edad": 19,
+        "ciudad": "no cancelen",
+        "activo": true,
+        "direccion": {
+            "barrio": "San Fernando",
+            "codigo_postal": 760001
+        }
+    },
+    {
+        "id": 4,
+        "nombre": "no cancelen",
+        "edad": 40,
+        "ciudad": "no cancelen",
+        "activo": true,
+        "direccion": {
+            "barrio": "El Poblado",
+            "codigo_postal": 50021
+        }
+    },
+    {
+        "id": 5,
+        "nombre": "no cancelen",
+        "edad": 28,
+        "ciudad": "no cancelen",
+        "activo": false,
+        "direccion": {
+            "barrio": "Riomar",
+            "codigo_postal": 800001
+        }
+    }
+]

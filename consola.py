@@ -58,9 +58,11 @@ def menu():
                 print(" El archivo no existe, necesitas tener uno creado")
             except Exception as e:
                 print( f"Error: {e}")
-
+        if opcion =="5": 
+            valor = int(input("Darme el valor"))
+            consultas.recorrer_lista(valor)
         elif opcion == "4":
             print("\n👋 Saliendo...")
             break
-
+        
 menu()

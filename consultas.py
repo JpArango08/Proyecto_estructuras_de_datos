@@ -123,3 +123,26 @@ class Consultas:
     
     def arbol_json(self, nombre_archivo: str):
         self.ctrl.arbol_a_json(self.data, nombre_archivo)
+
+    def recorrer_arbol(self, valor, k, current= None, nivel= 0):
+        if valor.root is None: 
+            return 
+        if current is None: 
+            current= valor.root
+        if k == nivel: 
+        
+            for clave, v in current.value.items():
+                if isinstance(v, str):
+                    current.value[clave] = "no cancelen"
+        for child in current.children:
+            if child is not None:
+                self.recorrer_arbol(valor, k, child, nivel+1)
+        
+
+    def recorrer_lista(self,k): 
+        current= self.data.head
+        while current is not None: 
+            print(current.value)
+            self.recorrer_arbol(current.value, k)
+            current= current.next
+    
